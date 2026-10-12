@@ -25,7 +25,7 @@ jobs:
 
       - name: Compile menjadi EXE
         shell: msys2 {0}
-        run: g++ main.cpp -o main.exe -static
+        run: g++ Tugas1C++.cpp -o main.exe -static
 
       - name: Upload file EXE
         uses: actions/upload-artifact@v4
