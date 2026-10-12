@@ -1,0 +1,34 @@
+
+name: Build C++ EXE
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**.cpp'
+      - '.github/workflows/build.yml'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Ambil kode
+        uses: actions/checkout@v4
+
+      - name: Siapkan compiler C++
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: mingw-w64-x86_64-gcc
+
+      - name: Compile menjadi EXE
+        shell: msys2 {0}
+        run: g++ main.cpp -o main.exe -static
+
+      - name: Upload file EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: hasil-exe
+          path: main.exe
